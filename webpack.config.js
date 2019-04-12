@@ -20,7 +20,7 @@ module.exports = (app, env) => {
             ]
         },
         entry: {
-            app: './src/app.js'
+            index: './src/index.js'
         },
         output: {
             path: path.resolve(__dirname, 'dist'),
