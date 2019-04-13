@@ -16,14 +16,23 @@ class BookService {
 
     add(book) {
         return this.$q((resolve, reject) => {
-            this.getBooks().then((books) => {
-                try {
-                    const valid = this.validBook(book);
-                    this.storageService.put(BOOKS, [...books, book]);
-                    resolve(valid);
-                } catch (e) {
-                    reject(e);
-                }
+            this.getList().then((books) => {
+                this.save([...books, book]);
+                resolve([...books, book]);
+            });
+        });
+    }
+
+    save(books) {
+        this.storageService.put(BOOKS, books);
+    }
+
+    update(book) {
+        return this.$q((resolve) => {
+            this.getList().then((books) => {
+                books[books.findIndex(f_book => f_book.id === book.id)] = book;
+                this.save([...books]);
+                resolve([...books]);
             });
         });
     }
@@ -40,6 +49,16 @@ class BookService {
             isbn,
             image,
         }
+    }
+
+    find(id) {
+        return this.$q(resolve => {
+            this.getList().then(books=>{
+                const book = books.find(book => book.id === id);
+                if (!book) throw Error('Book not found');
+                resolve(book);
+            });
+        });
     }
 
     valid(book) {

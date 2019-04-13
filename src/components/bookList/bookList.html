@@ -1,13 +1,12 @@
 <loader load="$ctrl.isLoading"></loader>
-<h2>book list</h2>
-<div class="row" ng-if="$ctrl.isAdmin">
-    <div class="col">
-        <button class="btn btn-primary" ng-click="$ctrl.add()"></button>
+<div class="row">
+    <div class="col mb-2">
+        <input placeholder="Поиск..." class="form-control" ng-model="$ctrl.query" ng-model-options="{debounce:500}">
     </div>
 </div>
-<div class="row">
-    <div class="col">
-        <input class="form-control" ng-model="$ctrl.query" ng-model-options="{debounce:500}">
+<div class="row" ng-if="$ctrl.isAdmin">
+    <div class="col mb-2">
+        <button class="btn btn-secondary" ng-click="$ctrl.add()">Добавить</button>
     </div>
 </div>
 <div class="row">

@@ -1,16 +1,7 @@
 import template from './app.html'
-import bookList from "../list/bookList";
+import bookList from "../bookList/bookList";
 import mainNav from "../mainNav/mainNav";
-
-const appName = 'app';
-const app = angular.module(appName, ['ui.router', bookList.name, mainNav.name])
-    .config(/*@ngInject*/($urlRouterProvider) => {
-        $urlRouterProvider.otherwise('/list');
-    })
-    .component(appName, {
-        templateUrl: template,
-        controller: AppCtrl
-    });
+import bookEdit from "../bookEdit/bookEdit";
 
 /* @ngInject*/
 class AppCtrl {
@@ -18,4 +9,13 @@ class AppCtrl {
     }
 }
 
+const appName = 'app';
+const app = angular.module(appName, ['ui.router', bookList.name, mainNav.name, bookEdit.name])
+    .config(/*@ngInject*/($urlRouterProvider) => {
+        $urlRouterProvider.otherwise('/bookList');
+    })
+    .component(appName, {
+        templateUrl: template,
+        controller: AppCtrl
+    });
 export default app;

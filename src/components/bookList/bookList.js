@@ -45,7 +45,7 @@ const bookList = angular.module(bookListName, [
         .config(/* @ngInject*/($stateProvider) => {
             $stateProvider
                 .state('list', {
-                    url: '/list',
+                    url: '/bookList',
                     component: bookListName
                 })
                 .state('admin', {
