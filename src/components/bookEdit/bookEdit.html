@@ -35,6 +35,20 @@
         </span>
         </div>
         <div class="form-group">
+            <label>Авторы</label>
+            <ui-select multiple ng-model="$ctrl.book.authors">
+                <ui-select-match placeholder="Выберите автора">{{$item.name}} {{$item.last_name}}</ui-select-match>
+                <ui-select-choices
+                        repeat="author in $ctrl.authors | propsFilter: {name: $select.search, last_name: $select.search}">
+                    <span ng-bind-html="author.last_name | highlight: $select.search"></span>
+                    <span ng-bind-html="author.name | highlight: $select.search"></span>
+                </ui-select-choices>
+            </ui-select>
+            <span class="invalid-feedback" ng-show="$ctrl.book.authors.length === 0">
+                Книга должна содержать хотя бы одного автора
+            </span>
+        </div>
+        <div class="form-group">
             <label>Название издательства</label>
             <input class="form-control"
                    type="text"
@@ -50,12 +64,39 @@
             <input class="form-control"
                    type="number"
                    min="1800"
-                   name="publisher"
+                   name="publish_year"
                    ng-model="$ctrl.book.publish_year">
-            <span class="invalid-feedback" ng-show="form.publish_year.$error.maxlength">
+            <span class="invalid-feedback" ng-show="form.publish_year.$error.min">
                 Год публикации должен быть не раньше 1800
             </span>
         </div>
+        <div class="form-group">
+            <label>Дата выхода в тира</label>
+            <input class="form-control"
+                   type="date"
+                   min="1800-01-01"
+                   name="date"
+                   ng-model="$ctrl.book.date">
+            <span class="invalid-feedback" ng-show="form.date.$error.min">
+                Год публикации должен быть не раньше 01.01.1800
+            </span>
+        </div>
+        <div class="form-group">
+            <label>ISBN</label>
+            <input class="form-control"
+                   type="text"
+                   name="isbn"
+                   isbn
+                   ng-model="$ctrl.book.isbn">
+            <span class="invalid-feedback" ng-show="form.isbn.$error">
+                Не правильный формат ISBN
+            </span>
+        </div>
+        <div class="form-group">
+            <image-input on-change="$ctrl.imageChange($value)" image="$ctrl.book.image"></image-input>
+        </div>
     </form>
-    <button type="button" class="btn btn-primary" ng-click="$ctrl.save(form)">Сохранить</button>
+    <button type="button" ng-disabled="!$ctrl.valid(form)" class="btn btn-primary" ng-click="$ctrl.save(form)">
+        Сохранить
+    </button>
 </div>

@@ -3632,6 +3632,11 @@ isarray@1.0.0, isarray@^1.0.0, isarray@~1.0.0:
   resolved "https://registry.yarnpkg.com/isarray/-/isarray-1.0.0.tgz#bb935d48582cba168c06834957a54a3e07124f11"
   integrity sha1-u5NdSFgsuhaMBoNJV6VKPgcSTxE=
 
+isbn-validate@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/isbn-validate/-/isbn-validate-1.0.3.tgz#dbb4e1dde6a492b8fed4b4c9816e4dc58743e4a9"
+  integrity sha512-x8azK6Jx2nvcbZqBOdEPtoKyrMAN6DM4JdfvFLP0EcAUu6/VELFy4rODI/5masnMRGLMqsrDUrG7o2n0ThpemQ==
+
 isexe@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/isexe/-/isexe-2.0.0.tgz#e8fbf374dc556ff8947a10dcb0572d633f2cfa10"
@@ -6488,6 +6493,11 @@ uglifyjs-webpack-plugin@^1.2.7:
     uglify-es "^3.3.4"
     webpack-sources "^1.1.0"
     worker-farm "^1.5.2"
+
+ui-select@^0.19.8:
+  version "0.19.8"
+  resolved "https://registry.yarnpkg.com/ui-select/-/ui-select-0.19.8.tgz#74860848a7fd8bc494d9856d2f62776ea98637c1"
+  integrity sha1-dIYISKf9i8SU2YVtL2J3bqmGN8E=
 
 union-value@^1.0.0:
   version "1.0.0"

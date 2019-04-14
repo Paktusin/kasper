@@ -1,0 +1,39 @@
+<loader load="$ctrl.isLoading"></loader>
+<div class="book-edit" ng-if="$ctrl.author">
+    <form name="form" class=" mb-2" novalidate>
+        <div class="form-group">
+            <label>Имя</label>
+            <input
+                    class="form-control"
+                    required
+                    type="text"
+                    maxlength="20"
+                    name="name"
+                    ng-model="$ctrl.author.name">
+            <span class="invalid-feedback" ng-show="form.name.$error.maxlength">
+            Имя должно быть не более 20 символов
+        </span>
+            <span class="invalid-feedback" ng-show="form.name.$error.required">
+            Имя должно быть заполнен
+        </span>
+        </div>
+        <div class="form-group">
+            <label>Фамилия</label>
+            <input
+                    class="form-control"
+                    required
+                    type="text"
+                    maxlength="20"
+                    name="last_name"
+                    ng-model="$ctrl.author.last_name">
+            <span class="invalid-feedback" ng-show="form.last_name.$error.maxlength">
+            Фамилия должна быть не более 20 символов
+        </span>
+            <span class="invalid-feedback" ng-show="form.last_name.$error.required">
+            Фамилия должна быть заполнен
+        </span>
+        </div>
+    </form>
+    <button type="button" class="btn btn-primary" ng-click="$ctrl.save()" ng-disabled="!form.$valid">Сохранить</button>
+    <button type="button" class="btn btn-light" ui-sref="authorAdmin">Отмена</button>
+</div>

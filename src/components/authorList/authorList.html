@@ -1,0 +1,29 @@
+<loader load="$ctrl.isLoading"></loader>
+<div class="author-list row">
+    <div class="col">
+        <a class="btn btn-secondary mb-2" ui-sref="authorNew">Добавить</a>
+        <table class="table table-sm">
+            <thead>
+            <tr>
+                <th width="10%">id</th>
+                <th width="40%">Имя</th>
+                <th width="40%">Фамилия</th>
+                <th width="10%"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="author in $ctrl.authors">
+                <td>{{author.id}}</td>
+                <td>{{author.name}}</td>
+                <td>{{author.last_name}}</td>
+                <td>
+                    <div class="btn-group btn-group-sm">
+                        <a class="btn btn-warning" ui-sref="authorEdit({id:author.id})">Изменить</a>
+                        <button class="btn btn-danger" ng-click="$ctrl.remove(author)">Удалить</button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

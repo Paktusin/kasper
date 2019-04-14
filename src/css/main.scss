@@ -17,8 +17,13 @@ $container-max-widths: (
 ) !default;
 
 @import "~bootstrap/scss/bootstrap";
+@import "~ui-select/dist/select.css";
 
-b,strong{
+.btn-default{
+  @extend .btn-light;
+}
+
+b, strong {
   font-weight: 900;
 }
 
@@ -27,8 +32,39 @@ b,strong{
   text-transform: uppercase;
 }
 
-.ng-invalid{
+.btn-light {
+  color: $primary;
+  &:hover, &:focus, &:active {
+    color: $primary !important;
+  }
+}
+
+.ng-invalid {
   @extend .is-invalid;
-  background-image:none!important;
-  padding-right:0.75rem!important;
+  background-image: none !important;
+  padding-right: 0.75rem !important;
+}
+
+image-input {
+  .custom-file-label::after {
+    display: none;
+  }
+}
+
+.ui-select-container.open {
+  .dropdown-menu {
+    display: block !important;
+  }
+}
+
+.ui-select-multiple.ui-select-bootstrap .ui-select-match .close{
+  color: $secondary;
+}
+
+.ui-select-highlight {
+  font-weight: 900;
+}
+
+button, [type="button"], [type="reset"], [type="submit"] {
+  -webkit-appearance: none;
 }

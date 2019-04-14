@@ -1,13 +1,24 @@
 import templateUrl from './bookEdit.html'
+import isbnValidator from './isbnValidator';
+import uiSelect from 'ui-select';
 import bookService from "../../services/bookService";
+import authorService from "../../services/authorService";
+import imageInput from "../../components/imageInput";
 
 /* @ngInject */
 class bookEditCtrl {
-    constructor($stateParams, bookService) {
+    constructor($stateParams, bookService, authorService, $state) {
         this.book = null;
         this.isLoading = false;
         this.bookService = bookService;
+        this.authorService = authorService;
         this.editId = $stateParams.id ? parseInt($stateParams.id) : null;
+        this.authors = [];
+        this.$state = $state;
+    }
+
+    imageChange(image) {
+        this.book.image = image;
     }
 
     $onInit() {
@@ -16,25 +27,36 @@ class bookEditCtrl {
                 .then(book => {
                     this.book = book;
                 })
-        }else{
-            this.book = this.bookService.new({});
+        } else {
+            this.bookService.new().then(book => {
+                this.book = book;
+            });
         }
+        this.authorService.list().then(authors => {
+            this.authors = authors;
+        });
     }
 
-    save(form){
-        console.log(form)
+    save() {
+        this.bookService[this.editId ? 'update' : 'add'](this.book).then(_ => {
+            this.$state.go('bookAdmin');
+        })
+    }
+
+    valid(form) {
+        return this.book.authors.length > 0 && form.$valid;
     }
 }
 
-const bookEdit = angular.module('bookEdit', [])
+const bookEdit = angular.module('bookEdit', [isbnValidator.name, uiSelect, bookService.name, authorService.name, imageInput.name])
     .config(($stateProvider) => {
         $stateProvider
-            .state('edit', {
-                url: '/edit/:id',
+            .state('bookEdit', {
+                url: '/book/edit/:id',
                 component: 'bookEdit'
             })
-            .state('new', {
-                url: '/new',
+            .state('bookNew', {
+                url: '/book/new',
                 component: 'bookEdit'
             })
         ;
@@ -43,7 +65,6 @@ const bookEdit = angular.module('bookEdit', [])
         templateUrl,
         controller: bookEditCtrl
     })
-
 ;
 
 

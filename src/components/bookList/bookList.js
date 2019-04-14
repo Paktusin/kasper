@@ -19,12 +19,12 @@ class BookListCtrl {
     }
 
     $onInit() {
-        this.refreshBooks();
+        // this.refreshBooks();
     }
 
     refreshBooks() {
         this.isLoading = true;
-        this.bookService.getList()
+        this.bookService.list()
             .then(books => {
                 this.isLoading = false;
                 this.books = books
@@ -37,27 +37,24 @@ const bookListName = 'bookList';
 const bookList = angular.module(bookListName, [
         bookService.name,
         loader.name
-    ])
-        .component(bookListName, {
-            templateUrl: template,
-            controller: BookListCtrl
-        })
-        .config(/* @ngInject*/($stateProvider) => {
-            $stateProvider
-                .state('list', {
-                    url: '/bookList',
-                    component: bookListName
-                })
-                .state('admin', {
-                    url: '/admin',
-                    component: bookListName,
-                    params: {
-                        admin: true
-                    }
-                });
-        })
+    ]).component(bookListName, {
+        templateUrl: template,
+        controller: BookListCtrl
+    }).config(/* @ngInject*/($stateProvider) => {
+        $stateProvider
+            .state('list', {
+                url: '/',
+                component: bookListName
+            })
+            .state('bookAdmin', {
+                url: '/admin/book',
+                component: bookListName,
+                params: {
+                    admin: true
+                }
+            });
+    })
 ;
-
 
 
 export default bookList;

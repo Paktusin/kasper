@@ -6,6 +6,7 @@ class StorageService extends LocalStorageService {
     }
 }
 
-const storageService = angular.module('storageService',[]).service('storageService', StorageService);
+const storageService = angular.module('storageService', [])
+    .service('storageService', StorageService);
 
 export default storageService;
