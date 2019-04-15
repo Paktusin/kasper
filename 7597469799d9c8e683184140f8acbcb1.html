@@ -1,0 +1,105 @@
+<loader load="$ctrl.isLoading"></loader>
+<div class="book-edit" ng-if="$ctrl.book">
+    <form name="form" class=" mb-2" novalidate>
+        <div class="form-group">
+            <label>Заголовок</label>
+            <input
+                    class="form-control"
+                    required
+                    type="text"
+                    maxlength="30"
+                    name="title"
+                    ng-model="$ctrl.book.title">
+            <span class="invalid-feedback" ng-show="form.title.$error.maxlength">
+            Заголовок должен быть не более 30 символов
+        </span>
+            <span class="invalid-feedback" ng-show="form.title.$error.required">
+            Заголовок должен быть заполнен
+        </span>
+        </div>
+        <div class="form-group">
+            <label>Количество страниц</label>
+            <input class="form-control"
+                   required
+                   type="number"
+                   min="1"
+                   max="10000"
+                   name="pages"
+                   ng-model="$ctrl.book.pages">
+            <span class="invalid-feedback" ng-show="form.pages.$error.min || form.pages.$error.max">
+            Количество страниц должно быть больше 0 и не более 10000
+        </span>
+            <span class="invalid-feedback" ng-show="form.pages.$error.required">
+            Количество страниц должно быть заполнено
+        </span>
+        </div>
+        <div class="form-group">
+            <label>Авторы</label>
+            <ui-select multiple ng-model="$ctrl.book.authors" ng-required="true">
+                <ui-select-match placeholder="Выберите автора">{{$item.name}} {{$item.last_name}}</ui-select-match>
+                <ui-select-choices
+                        repeat="author in $ctrl.authors | propsFilter: {name: $select.search, last_name: $select.search}">
+                    <span ng-bind-html="author.last_name | highlight: $select.search"></span>
+                    <span ng-bind-html="author.name | highlight: $select.search"></span>
+                </ui-select-choices>
+            </ui-select>
+            <span class="invalid-feedback" ng-if="$ctrl.book.authors.length === 0">
+                Книга должна содержать хотя бы одного автора
+            </span>
+        </div>
+        <div class="form-group">
+            <label>Название издательства</label>
+            <input class="form-control"
+                   type="text"
+                   maxlength="30"
+                   name="publisher"
+                   ng-model="$ctrl.book.publisher">
+            <span class="invalid-feedback" ng-show="form.publisher.$error.maxlength">
+                Название издательства должно быть не более 30 символов
+            </span>
+        </div>
+        <div class="form-group">
+            <label>Год публикации</label>
+            <input class="form-control"
+                   type="number"
+                   min="1800"
+                   name="publish_year"
+                   ng-model="$ctrl.book.publish_year">
+            <span class="invalid-feedback" ng-show="form.publish_year.$error.min">
+                Год публикации должен быть не раньше 1800
+            </span>
+        </div>
+        <div class="form-group">
+            <label>Дата выхода в тира</label>
+            <input class="form-control"
+                   type="date"
+                   min="1800-01-01"
+                   name="date"
+                   ng-model="$ctrl.book.date">
+            <span class="invalid-feedback" ng-show="form.date.$error.min">
+                Год публикации должен быть не раньше 01.01.1800
+            </span>
+        </div>
+        <div class="form-group">
+            <label>ISBN</label>
+            <input class="form-control"
+                   type="text"
+                   name="isbn"
+                   isbn
+                   ng-model="$ctrl.book.isbn">
+            <span class="invalid-feedback" ng-show="form.isbn.$error">
+                Не правильный формат ISBN
+            </span>
+        </div>
+        <div class="form-group">
+            <label>Изображение</label>
+            <image-input on-change="$ctrl.imageChange($value)" image="$ctrl.book.image"></image-input>
+        </div>
+    </form>
+    <button type="button" ng-disabled="!$ctrl.valid(form)" class="btn btn-primary" ng-click="$ctrl.save(form)">
+        Сохранить
+    </button>
+    <a class="btn btn-light" ui-sref="bookAdmin">
+        Отмена
+    </a>
+</div>
