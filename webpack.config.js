@@ -11,11 +11,11 @@ module.exports = (app, env) => {
     const config = {
         optimization: {
             minimizer: [
-                new UglifyJsPlugin({
-                    cache: true,
-                    parallel: true,
-                    sourceMap: true
-                }),
+                // new UglifyJsPlugin({
+                //     cache: true,
+                //     parallel: true,
+                //     sourceMap: true
+                // }),
                 new OptimizeCssAssetsPlugin({})
             ]
         },
@@ -45,9 +45,6 @@ module.exports = (app, env) => {
                     use: [
                         {
                             loader: 'file-loader',
-                            options: {
-                                publicPath: prod ? 'dist' : ''
-                            }
                         }
                     ]
                 },
