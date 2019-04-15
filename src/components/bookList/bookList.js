@@ -14,12 +14,18 @@ class BookListCtrl {
 
     filteredBooks() {
         return this.books.filter(book => {
-            return book.title.toLowerCase().indexOf(book.toLowerCase()) !== -1;
+            return book.title.toLowerCase().indexOf(book.title.toLowerCase()) !== -1;
         });
     }
 
     $onInit() {
-        // this.refreshBooks();
+        this.refreshBooks();
+    }
+
+    remove(book) {
+        this.bookService.remove(book).then(books => {
+            this.books = books;
+        })
     }
 
     refreshBooks() {

@@ -3,21 +3,25 @@ class imageInputCtrl {
     constructor($element, $scope) {
         this.$scope = $scope;
         $($element).find('input').on('change', this.fileChange.bind(this));
+        this.reader = new FileReader();
+        this.reader.onload = this.updateFile.bind(this)
+    }
+
+    updateFile(e) {
+        this.$scope.$apply(this.reader);
+        this.image = this.reader.result;
+        this.$scope.$apply();
+        this.onChange({$value: this.image});
     }
 
     fileChange(event) {
         if (event.target.files.length === 0) return;
-        this.getBase64(event.target.files[0]);
+        this.reader.readAsDataURL(event.target.files[0]);
     }
 
-    getBase64(file) {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-            this.image = reader.result;
-            this.$scope.$apply();
-            this.onChange({$value: this.image});
-        }
+    clear() {
+        this.image = null;
+        this.onChange({$value: this.image});
     }
 
     style() {
@@ -27,7 +31,7 @@ class imageInputCtrl {
             backgroundImage: `url(${this.image})`,
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
-            backgroundSize:'contain'
+            backgroundSize: 'contain'
         };
     }
 }
@@ -45,12 +49,12 @@ const imageInput = angular.module('imageInput', [])
             <input
             class="custom-file-input" 
             id="inputGroupFile04" 
-            aria-describedby="inputGroupFileAddon04"
+            aria-describedby="inputGroupFile04"
             type="file" accept="image/*">
             <label class="custom-file-label" for="inputGroupFile04">Выберите файл</label>
         </div>
         <div class="input-group-append" ng-if="$ctrl.image">
-            <button title="Очистить" class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">
+            <button title="Очистить" ng-click="$ctrl.clear()" class="btn btn-outline-secondary" type="button">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
@@ -59,7 +63,7 @@ const imageInput = angular.module('imageInput', [])
         controller: imageInputCtrl,
         bindings: {
             onChange: '&',
-            image:'<'
+            image: '<'
         }
     });
 

@@ -19,12 +19,12 @@ $container-max-widths: (
 @import "~bootstrap/scss/bootstrap";
 @import "~ui-select/dist/select.css";
 
-.btn-default{
+.btn-default {
   @extend .btn-light;
 }
 
-b, strong {
-  font-weight: 900;
+label, b, strong {
+  font-weight: bold;
 }
 
 .btn {
@@ -34,6 +34,7 @@ b, strong {
 
 .btn-light {
   color: $primary;
+
   &:hover, &:focus, &:active {
     color: $primary !important;
   }
@@ -57,7 +58,7 @@ image-input {
   }
 }
 
-.ui-select-multiple.ui-select-bootstrap .ui-select-match .close{
+.ui-select-multiple.ui-select-bootstrap .ui-select-match .close {
   color: $secondary;
 }
 
@@ -67,4 +68,13 @@ image-input {
 
 button, [type="button"], [type="reset"], [type="submit"] {
   -webkit-appearance: none;
+}
+
+.img {
+  margin-bottom: 1rem;
+  height:200px;
+  width:100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
