@@ -33,7 +33,6 @@ class authorListCtrl {
             this.isLoading = false;
         })
     }
-
 }
 
 const authorEdit = angular.module('authorList', [authorService.name])

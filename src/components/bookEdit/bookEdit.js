@@ -25,7 +25,7 @@ class bookEditCtrl {
         if (this.editId) {
             this.bookService.find(this.editId)
                 .then(book => {
-                    this.book = book;
+                    this.book = {...book, date: moment(book.date).toDate()};
                 })
         } else {
             this.bookService.new().then(book => {

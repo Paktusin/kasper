@@ -7,8 +7,7 @@
                     class="form-control"
                     required
                     type="text"
-                    minlength="2"
-                    maxlength="5"
+                    maxlength="30"
                     name="title"
                     ng-model="$ctrl.book.title">
             <span class="invalid-feedback" ng-show="form.title.$error.maxlength">
@@ -100,4 +99,7 @@
     <button type="button" ng-disabled="!$ctrl.valid(form)" class="btn btn-primary" ng-click="$ctrl.save(form)">
         Сохранить
     </button>
+    <a class="btn btn-light" ui-sref="bookAdmin">
+        Отмена
+    </a>
 </div>

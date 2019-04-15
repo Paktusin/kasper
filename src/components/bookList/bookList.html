@@ -1,35 +1,52 @@
 <loader load="$ctrl.isLoading"></loader>
 <div class="row">
     <div class="col mb-2">
-        <input placeholder="Поиск..." class="form-control" ng-model="$ctrl.query" ng-model-options="{debounce:500}">
-    </div>
-</div>
-<div class="row" ng-if="$ctrl.isAdmin">
-    <div class="col mb-2">
-        <button class="btn btn-secondary" ui-sref="bookNew">Добавить</button>
+        <input placeholder="Поиск..." class="form-control" ng-model="$ctrl.query"">
     </div>
 </div>
 <div class="row">
-    <div class="col-6 col-sm-4" ng-repeat="book in $ctrl.filteredBooks()">
-        <div class="card">
-            <div class="card-header">
-                <b>{{book.title}}</b>
+    <div class="col mb-2">
+        <button ng-if="$ctrl.isAdmin" class="btn btn-secondary" ui-sref="bookNew">Добавить</button>
+        <div class="btn-group" role="group">
+            <button id="btnGroupDrop1" type="button" class="btn btn-primary"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Сортировка: {{'book_'+$ctrl.order.field | translate}}
+                <i class="fa" ng-class="$ctrl.order.asc?'fa-sort-asc':'fa-sort-desc'"></i>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                <a ng-click="$ctrl.setOrder({field:'title',asc:1})" class="dropdown-item" href="#">Сортировать по {{'book_title' | translate}}у <i class="fa fa-sort-asc"></i></a>
+                <a ng-click="$ctrl.setOrder({field:'title',asc:0})" class="dropdown-item" href="#">Сортировать по {{'book_title' | translate}}у <i class="fa fa-sort-desc"></i></a>
+                <a ng-click="$ctrl.setOrder({field:'publish_year',asc:1})" class="dropdown-item" href="#">Сортировать по {{'book_publish_year' | translate}} <i class="fa fa-sort-asc"></i></a>
+                <a ng-click="$ctrl.setOrder({field:'publish_year',asc:0})" class="dropdown-item" href="#">Сортировать по {{'book_publish_year' | translate}} <i class="fa fa-sort-desc"></i></a>
             </div>
-            <div class="card-body">
+        </div>
+    </div>
+</div>
+</div>
+<div class="row">
+    <div class="col-12" ng-repeat="book in $ctrl.filteredBooks()">
+        <div class="media shadow border p-2 mb-3">
+            <div class="align-self-center mr-3" style="width: 150px; height: 150px">
                 <div ng-if="book.image" class="img" style="background-image: url({{book.image}})"></div>
-                <div ng-if="!book.image" class="no-img img"></div>
-                <div><label>Автор:</label>&nbsp;<span ng-repeat="author in book.authors">{{author.name}} {{author.last_name}}{{!$last?',':''}}</span>
+                <div ng-if="!book.image" class="no-img img bg-light  text-black-50">
+                    <i class="fa fa-camera-retro fa-2x" aria-hidden="true"></i>
+                    Нет изображения
                 </div>
-                <div><label>Количество страниц:</label>&nbsp;{{book.pages}}шт.</div>
-                <div ng-if="book.publisher"><label>Название издательства:</label>&nbsp;{{book.publisher}}</div>
-                <div ng-if="book.publish_year"><label>Год публикации:</label>&nbsp;{{book.publish_year}}</div>
-                <div ng-if="book.year"><label>Дата выхода в тираж:</label>&nbsp;{{book.date | date:'dd.MM.yyyy'}}</div>
-                <div ng-if="book.isbn"><label>ISBN:</label>&nbsp;{{book.isbn}}</div>
             </div>
-            <div ng-if="$ctrl.isAdmin" class="card-footer text-center">
-                <div class="btn-group btn-group-sm">
-                <a ui-sref="bookEdit({id:book.id})" class="btn btn-warning">Изменить</a>
-                <button ng-click="$ctrl.remove(book)" class="btn btn-danger">Удалить</button>
+            <div class="media-body">
+                <h4 class="text-center">{{book.title}}</h4>
+                <p><b>Автор:</b>&nbsp;<span ng-repeat="author in book.authors">{{author.name}} {{author.last_name}}{{!$last?',':''}}</span>
+                </p>
+                <p><b>Количество страниц:</b>&nbsp;{{book.pages}}</p>
+                <p ng-if="book.publisher"><b>Название издательства:</b>&nbsp;{{book.publisher}}</p>
+                <p ng-if="book.publish_year"><b>Год публикации:</b>&nbsp;{{book.publish_year}}</p>
+                <p ng-if="book.date"><b>Дата выхода в тираж:</b>&nbsp;{{book.date | date:'dd.MM.yyyy'}}</p>
+                <p ng-if="book.isbn"><b>ISBN:</b>&nbsp;{{book.isbn}}</p>
+                <div ng-if="$ctrl.isAdmin" class="mt-2">
+                    <div class="btn-group btn-group-sm">
+                        <a ui-sref="bookEdit({id:book.id})" class="btn btn-warning">Изменить</a>
+                        <button ng-click="$ctrl.remove(book)" class="btn btn-danger">Удалить</button>
+                    </div>
                 </div>
             </div>
         </div>

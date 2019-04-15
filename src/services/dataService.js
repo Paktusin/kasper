@@ -56,8 +56,8 @@ class DataService {
     getLastId() {
         return this.$q(resolve => {
             this.list().then(objects => resolve(objects.reduce((id, object) => {
-                return object.id > id ? object.id : id;
-            }, 1)));
+                return object.id >= id ? object.id : id;
+            }, 1) + 1));
         })
     }
 
