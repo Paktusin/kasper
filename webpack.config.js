@@ -11,11 +11,13 @@ module.exports = (app, env) => {
     const config = {
         optimization: {
             minimizer: [
-                // new UglifyJsPlugin({
-                //     cache: true,
-                //     parallel: true,
-                //     sourceMap: true
-                // }),
+                new UglifyJsPlugin({
+                    cache: true,
+                    parallel: true,
+                    uglifyOptions:{
+                        mangle:false
+                    }
+                }),
                 new OptimizeCssAssetsPlugin({})
             ]
         },
